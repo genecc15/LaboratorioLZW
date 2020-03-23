@@ -10,12 +10,12 @@ namespace LabLZW
 {
     public class LZWMetodos
     {
-        public void Descomprimir(string RPath, string WPath)
+        public static void LZWAlgoritmo(string RPath, string WPath)
         {
-            Comprimir(RPath);
-            Descomprimir(RPath, WPath);
+            Comprimir(RPath, WPath);
+            descomprimir(WPath);
         }
-        public static void Comprimir(string path)
+        public static void Comprimir(string Rpath, string WPath)
         {
             #region Variables
 
@@ -24,7 +24,6 @@ namespace LabLZW
 
             #endregion
 
-            //Crear dicionario
             #region Caracteres
 
             var diccionario = obtenerDiccionarioCompresion();
@@ -44,7 +43,7 @@ namespace LabLZW
             int contador = 0;
 
             //Buffer para comprimir
-            using (var file = new FileStream(path, FileMode.Open))
+            using (var file = new FileStream(Rpath, FileMode.Open))
             {
                 using (var reader = new BinaryReader(file))
                 {
@@ -70,7 +69,7 @@ namespace LabLZW
                                     string Byte = bits.Substring(0, 8);
                                     bits = bits.Remove(0, 8);
 
-                                   // ByteArrayToFile(RutaComprimido, new[] { Convert.ToByte(Convert.ToInt32(Byte, 2)) });
+                                    ByteArrayToFile(WPath, new[] { Convert.ToByte(Convert.ToInt32(Byte, 2)) });
                                 }
 
                                 comprimir.Add(diccionario[c]);
@@ -110,18 +109,18 @@ namespace LabLZW
                     string Byte = bits.Substring(0, 8);
                     bits = bits.Remove(0, 8);
 
-                   // ByteArrayToFile(rutaComprimido, new[] { Convert.ToByte(Convert.ToInt32(Byte, 2)) });
+                   ByteArrayToFile(WPath, new[] { Convert.ToByte(Convert.ToInt32(Byte, 2)) });
                 }
             }
 
             #endregion
             #region FileInfo
 
-            LZWController.currentFile = rutaComprimido;
+            //LZWController.currentFile = rutaComprimido;
 
-            FileInfo originalFile = new FileInfo(path);
-            FileInfo compressedFile = new FileInfo(rutaComprimido);
-            MisCompresiones.agregarNuevaCompresion(new MisCompresiones(Path.GetFileName(path), originalFile.Length, compressedFile.Length)); //Anadir a mis compresiones
+           // FileInfo originalFile = new FileInfo(path);
+            //FileInfo compressedFile = new FileInfo(rutaComprimido);
+           // MisCompresiones.agregarNuevaCompresion(new MisCompresiones(Path.GetFileName(path), originalFile.Length, compressedFile.Length)); //Anadir a mis compresiones
 
             #endregion
         }
@@ -130,9 +129,9 @@ namespace LabLZW
 
             #region Crear_Archivo
 
-            string nombreNuevoArchivo = Path.GetFileNameWithoutExtension(path) + ".txt";
-            string rutaArchivo = Path.Combine(LZWController.directorioLZW, nombreNuevoArchivo);
-            Archivo.crearArchivo(rutaArchivo);
+            //string nombreNuevoArchivo = Path.GetFileNameWithoutExtension(path) + ".txt";
+            //string rutaArchivo = Path.Combine(LZWController.directorioLZW, nombreNuevoArchivo);
+            //Archivo.crearArchivo(rutaArchivo);
 
             #endregion
 
@@ -205,7 +204,7 @@ namespace LabLZW
                             }
                         }
 
-                        Lectura.Escritura(descomprimir, rutaArchivo);
+                       //Lectura.Escritura(descomprimir, rutaArchivo);
                         descomprimir = "";
 
                     }
@@ -213,7 +212,7 @@ namespace LabLZW
             }
 
 
-            LZWController.currentFile = rutaArchivo; //Descargar
+           // LZWController.currentFile = rutaArchivo; //Descargar
 
         }
         private static Dictionary<int, string> obtenerDiccionarioDescompresion()

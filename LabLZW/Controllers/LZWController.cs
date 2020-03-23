@@ -9,13 +9,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LabLZW.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class LZWController : ControllerBase
     {
         public static IWebHostEnvironment _environment;
-        readonly LZWMetodos LZWCompresion = new LZWMetodos();
-        readonly LZWMetodos LZWDesc = new LZWMetodos();
+        private readonly LZWMetodos LZWCompresion = new LZWMetodos();
+        private readonly LZWMetodos LZWDesc = new LZWMetodos();
 
         public LZWController(IWebHostEnvironment env)
         {
@@ -39,6 +39,8 @@ namespace LabLZW.Controllers
                     objFile.Files.CopyTo(_fileStream);
                     _fileStream.Flush();
                     _fileStream.Close();
+
+                    LZWCompress(objFile, id);
                     return "\\UploadLZW\\" + objFile.Files.FileName;
                 }
                 else return "Archivo Vacio";
@@ -52,8 +54,7 @@ namespace LabLZW.Controllers
         public void LZWCompress(FileUploadAPI objFile, string id)
         {
             string[] FileName1 = objFile.Files.FileName.Split(".");
-            LZWComp.Compression(_environment.WebRootPath + "\\UploadLZW\\" + objFile.Files.FileName, _environment.WebRootPath + "\\UploadLZW\\" + id + ".lzw");
-            LZWComp.SetCompressionsLZW(_environment.WebRootPath + "\\UploadLZW\\" + objFile.Files.FileName, _environment.WebRootPath + "\\UploadLZW\\" + id + ".lzw");
+            LZWMetodos.LZWAlgoritmo(_environment.WebRootPath + "\\UploadLZW\\" + objFile.Files.FileName, _environment.WebRootPath + "\\UploadLZW\\" + id + ".lzw");
         }
         [Route("/Decompress/LZW")]
         [HttpPost]
@@ -88,7 +89,7 @@ namespace LabLZW.Controllers
         {
 
             string[] FileName1 = LZWFile.Files.FileName.Split(".");
-            LZWDecomp.Decompression(_environment.WebRootPath + "\\UploadLZW\\" + LZWFile.Files.FileName, _environment.WebRootPath + "\\UploadLZW\\" + FileName1[0] + ".txt");
+            LZWMetodos.LZWAlgoritmo(_environment.WebRootPath + "\\UploaadLZW\\" + LZWFile.Files.FileName, _environment.WebRootPath + "\\UploadLZW\\" + FileName1[0] + ".txt");
 
         }
     }

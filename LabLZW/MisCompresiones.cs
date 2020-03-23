@@ -1,95 +1,95 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.IO;
-using LabLZW.Controllers;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Threading.Tasks;
+//using System.IO;
+//using LabLZW.Controllers;
 
-namespace LabLZW
-{
-    public class MisCompresiones
-    {
-        public string nombreOriginal { get; set; }
-        public double razonDeCompresion { get; set; }
-        public double factorDeCompresion { get; set; }
-        public double porcentajeDeCompresion { get; set; }
+//namespace LabLZW
+//{
+//    public class MisCompresiones
+//    {
+//        public string nombreOriginal { get; set; }
+//        public double razonDeCompresion { get; set; }
+//        public double factorDeCompresion { get; set; }
+//        public double porcentajeDeCompresion { get; set; }
 
-        public MisCompresiones() { }
-        public MisCompresiones(string nombre, double razon, double factor, double porcentaje)
-        {
-            nombreOriginal = nombre;
-            razonDeCompresion = razon;
-            factorDeCompresion = factor;
-            porcentajeDeCompresion = porcentaje;
-        }
-        public MisCompresiones(string nombre, long pesoOriginal, long pesoComprimido)
-        {
-            nombreOriginal = nombre;
-            razonDeCompresion = calcularRazon(pesoOriginal, pesoComprimido);
-            factorDeCompresion = calcularFactor(pesoOriginal, pesoComprimido);
-            porcentajeDeCompresion = calcularPorcentaje(pesoOriginal, pesoComprimido);
-        }
+//        public MisCompresiones() { }
+//        public MisCompresiones(string nombre, double razon, double factor, double porcentaje)
+//        {
+//            nombreOriginal = nombre;
+//            razonDeCompresion = razon;
+//            factorDeCompresion = factor;
+//            porcentajeDeCompresion = porcentaje;
+//        }
+//        public MisCompresiones(string nombre, long pesoOriginal, long pesoComprimido)
+//        {
+//            nombreOriginal = nombre;
+//            razonDeCompresion = calcularRazon(pesoOriginal, pesoComprimido);
+//            factorDeCompresion = calcularFactor(pesoOriginal, pesoComprimido);
+//            porcentajeDeCompresion = calcularPorcentaje(pesoOriginal, pesoComprimido);
+//        }
 
-        //Calcular valores solicitados...
-        private double calcularRazon(long pesoOriginal, long pesoComprimido)
-        {
-            return Math.Round(Convert.ToDouble(pesoComprimido) / Convert.ToDouble(pesoOriginal), 2);
-        }
+//        //Calcular valores solicitados...
+//        private double calcularRazon(long pesoOriginal, long pesoComprimido)
+//        {
+//            return Math.Round(Convert.ToDouble(pesoComprimido) / Convert.ToDouble(pesoOriginal), 2);
+//        }
 
-        private double calcularFactor(long pesoOriginal, long pesoComprimido)
-        {
-            return Math.Round(Convert.ToDouble(pesoOriginal) / Convert.ToDouble(pesoComprimido), 2);
-        }
+//        private double calcularFactor(long pesoOriginal, long pesoComprimido)
+//        {
+//            return Math.Round(Convert.ToDouble(pesoOriginal) / Convert.ToDouble(pesoComprimido), 2);
+//        }
 
-        private double calcularPorcentaje(long pesoOriginal, long pesoComprimido)
-        {
-            return Math.Round(100 - ((Convert.ToDouble(pesoComprimido) / Convert.ToDouble(pesoOriginal)) * 100), 2);
-        }
+//        private double calcularPorcentaje(long pesoOriginal, long pesoComprimido)
+//        {
+//            return Math.Round(100 - ((Convert.ToDouble(pesoComprimido) / Convert.ToDouble(pesoOriginal)) * 100), 2);
+//        }
 
-        public static void agregarNuevaCompresion(MisCompresiones nuevo)
-        {
-            string path = LZWController.archivoMisCompresiones;
+//        public static void agregarNuevaCompresion(MisCompresiones nuevo)
+//        {
+//            string path = LZWController.archivoMisCompresiones;
 
-            using (StreamWriter sw = File.AppendText(path))
-            {
-                string text =
-                    $"{nuevo.nombreOriginal}, {nuevo.razonDeCompresion}, {nuevo.factorDeCompresion}, {nuevo.porcentajeDeCompresion}";
-                sw.WriteLine(text);
-            }
+//            using (StreamWriter sw = File.AppendText(path))
+//            {
+//                string text =
+//                    $"{nuevo.nombreOriginal}, {nuevo.razonDeCompresion}, {nuevo.factorDeCompresion}, {nuevo.porcentajeDeCompresion}";
+//                sw.WriteLine(text);
+//            }
 
-        }
+//        }
 
-        public static List<MisCompresiones> leerLista()
-        {
+//        public static List<MisCompresiones> leerLista()
+//        {
 
-            string path = LZWController.archivoMisCompresiones;
+//            string path = LZWController.archivoMisCompresiones;
 
-            Stack<MisCompresiones> lista = new Stack<MisCompresiones>();
+//            Stack<MisCompresiones> lista = new Stack<MisCompresiones>();
 
-            if (!File.Exists(path)) //No existe el archivo
-            {
-                File.Create(path);
-            }
-            else
-            {
-                using (var reader = new StreamReader(path))
-                {
+//            if (!File.Exists(path)) //No existe el archivo
+//            {
+//                File.Create(path);
+//            }
+//            else
+//            {
+//                using (var reader = new StreamReader(path))
+//                {
 
-                    while (!reader.EndOfStream) //Recorrer archivo hasta el final
-                    {
+//                    while (!reader.EndOfStream) //Recorrer archivo hasta el final
+//                    {
 
-                        var line = reader.ReadLine();
+//                        var line = reader.ReadLine();
 
-                        string[] datos = line?.Split(','); //dividir datos
+//                        string[] datos = line?.Split(','); //dividir datos
 
-                        lista.Push(new MisCompresiones(datos?[0], Convert.ToDouble(datos?[1]),
-                            Convert.ToDouble(datos?[2]), Convert.ToDouble(datos?[3])));
-                    }
-                    reader.Close();
-                }
-            }
+//                        lista.Push(new MisCompresiones(datos?[0], Convert.ToDouble(datos?[1]),
+//                            Convert.ToDouble(datos?[2]), Convert.ToDouble(datos?[3])));
+//                    }
+//                    reader.Close();
+//                }
+//            }
 
-            return lista.ToList();
-        }
-    }
-}
+//            return lista.ToList();
+//        }
+//    }
+//}
