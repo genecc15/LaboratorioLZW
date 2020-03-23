@@ -208,9 +208,6 @@ namespace LabLZW
                 }
             }
 
-
-           // LZWController.currentFile = rutaArchivo; //Descargar
-
         }
         private static Dictionary<int, string> obtenerDiccionarioDescompresion()
         {
