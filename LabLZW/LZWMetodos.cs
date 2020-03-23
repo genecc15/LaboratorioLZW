@@ -13,8 +13,12 @@ namespace LabLZW
         public static void LZWAlgoritmo(string RPath, string WPath)
         {
             Comprimir(RPath, WPath);
-            descomprimir(WPath);
         }
+        public static void LZWAlgoritmo2(string RPath, string WPath)
+        {
+            descomprimir(RPath, WPath);
+        }
+        #region Comprimir
         public static void Comprimir(string Rpath, string WPath)
         {
             #region Variables
@@ -124,16 +128,10 @@ namespace LabLZW
 
             #endregion
         }
-        public static void descomprimir(string path)
+        #endregion
+        public static void descomprimir(string RPath, string WPath)
         {
 
-            #region Crear_Archivo
-
-            //string nombreNuevoArchivo = Path.GetFileNameWithoutExtension(path) + ".txt";
-            //string rutaArchivo = Path.Combine(LZWController.directorioLZW, nombreNuevoArchivo);
-            //Archivo.crearArchivo(rutaArchivo);
-
-            #endregion
 
             int bufferLength = 1024;
 
@@ -144,7 +142,7 @@ namespace LabLZW
 
             Dictionary<int, char> dictionary = new Dictionary<int, char>();
 
-            using (var file = new FileStream(path, FileMode.Open))
+            using (var file = new FileStream(RPath, FileMode.Open))
             {
                 using (var reader = new BinaryReader(file))
                 {
@@ -204,7 +202,7 @@ namespace LabLZW
                             }
                         }
 
-                       //Lectura.Escritura(descomprimir, rutaArchivo);
+                       Lectura.Escritura(descomprimir, WPath);
                         descomprimir = "";
 
                     }

@@ -89,7 +89,7 @@ namespace LabLZW.Controllers
         {
 
             string[] FileName1 = LZWFile.Files.FileName.Split(".");
-            LZWMetodos.LZWAlgoritmo(_environment.WebRootPath + "\\UploaadLZW\\" + LZWFile.Files.FileName, _environment.WebRootPath + "\\UploadLZW\\" + FileName1[0] + ".txt");
+            LZWMetodos.LZWAlgoritmo2(_environment.WebRootPath + "\\UploadLZW\\" + LZWFile.Files.FileName, _environment.WebRootPath + "\\UploadLZW\\" + FileName1[0] + ".txt");
 
         }
     }
