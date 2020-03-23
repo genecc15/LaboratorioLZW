@@ -45,16 +45,16 @@ namespace LabLZW.Controllers
                 }
                 else return "Archivo Vacio";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return ex.Message.ToString();
             }
         }
-
         public void LZWCompress(FileUploadAPI objFile, string id)
         {
             string[] FileName1 = objFile.Files.FileName.Split(".");
             LZWMetodos.LZWAlgoritmo(_environment.WebRootPath + "\\UploadLZW\\" + objFile.Files.FileName, _environment.WebRootPath + "\\UploadLZW\\" + id + ".lzw");
+            MisCompresiones.LZWCompresiones(_environment.WebRootPath + "\\UploadLZW\\" + objFile.Files.FileName, _environment.WebRootPath + "\\UploadLZW\\" + "Compresions.txt");
         }
         [Route("/Decompress/LZW")]
         [HttpPost]

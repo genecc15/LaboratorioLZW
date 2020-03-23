@@ -118,13 +118,12 @@ namespace LabLZW
             }
 
             #endregion
+
             #region FileInfo
 
-            //LZWController.currentFile = rutaComprimido;
-
-           // FileInfo originalFile = new FileInfo(path);
-            //FileInfo compressedFile = new FileInfo(rutaComprimido);
-           // MisCompresiones.agregarNuevaCompresion(new MisCompresiones(Path.GetFileName(path), originalFile.Length, compressedFile.Length)); //Anadir a mis compresiones
+            FileInfo originalFile = new FileInfo(Rpath);
+            FileInfo compressedFile = new FileInfo(WPath);
+            MisCompresiones.agregarNuevaCompresion(new MisCompresiones(Path.GetFileName(Rpath), originalFile.Length, compressedFile.Length, WPath)); //Anadir a mis compresiones
 
             #endregion
         }
