@@ -9,10 +9,6 @@ namespace LabLZW
 {
     public class MisCompresiones
     {
-        public static void LZWCompresiones(string RPath, string WPath)
-        {
-             string path = WPath;
-        }
         public string nombreOriginal { get; set; }
         public string RutaO { get; set; }
         public double razonDeCompresion { get; set; }
@@ -55,6 +51,8 @@ namespace LabLZW
 
         public static void agregarNuevaCompresion(MisCompresiones nuevo)
         {
+
+
             string path = nuevo.RutaO;
             using (StreamWriter sw = File.AppendText(path))
             {

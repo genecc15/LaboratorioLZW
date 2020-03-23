@@ -10,16 +10,16 @@ namespace LabLZW
 {
     public class LZWMetodos
     {
-        public static void LZWAlgoritmo(string RPath, string WPath)
+        public static void LZWAlgoritmo(string RPath, string WPath, string WPath2)
         {
-            Comprimir(RPath, WPath);
+            Comprimir(RPath, WPath, WPath2);
         }
         public static void LZWAlgoritmo2(string RPath, string WPath)
         {
             descomprimir(RPath, WPath);
         }
         #region Comprimir
-        public static void Comprimir(string Rpath, string WPath)
+        public static void Comprimir(string Rpath, string WPath, string WPath2)
         {
             #region Variables
 
@@ -123,7 +123,7 @@ namespace LabLZW
 
             FileInfo originalFile = new FileInfo(Rpath);
             FileInfo compressedFile = new FileInfo(WPath);
-            MisCompresiones.agregarNuevaCompresion(new MisCompresiones(Path.GetFileName(Rpath), originalFile.Length, compressedFile.Length, WPath)); //Anadir a mis compresiones
+            MisCompresiones.agregarNuevaCompresion(new MisCompresiones(Path.GetFileName(Rpath), originalFile.Length, compressedFile.Length, WPath2)); //Anadir a mis compresiones
 
             #endregion
         }

@@ -53,8 +53,7 @@ namespace LabLZW.Controllers
         public void LZWCompress(FileUploadAPI objFile, string id)
         {
             string[] FileName1 = objFile.Files.FileName.Split(".");
-            LZWMetodos.LZWAlgoritmo(_environment.WebRootPath + "\\UploadLZW\\" + objFile.Files.FileName, _environment.WebRootPath + "\\UploadLZW\\" + id + ".lzw");
-            MisCompresiones.LZWCompresiones(_environment.WebRootPath + "\\UploadLZW\\" + objFile.Files.FileName, _environment.WebRootPath + "\\UploadLZW\\" + "Compresions.txt");
+            LZWMetodos.LZWAlgoritmo(_environment.WebRootPath + "\\UploadLZW\\" + objFile.Files.FileName, _environment.WebRootPath + "\\UploadLZW\\" + id + ".lzw", _environment.WebRootPath + "\\UploadLZW\\" +"Compresiones.txt");
         }
         [Route("/Decompress/LZW")]
         [HttpPost]
