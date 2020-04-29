@@ -26,6 +26,21 @@ namespace LabLZW.Controllers
             public IFormFile Files { get; set; }
         }
 
+        [Route("/Compressions/LZW")]
+        [HttpGet]
+        public async Task<IActionResult> DownloadCompressions()
+        {
+            var memory = new MemoryStream();
+
+            using (var stream = new FileStream(_environment.WebRootPath + "\\UploadLZW\\"  + "Compresiones.txt", FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+            }
+
+            memory.Position = 0;
+            return File(memory, System.Net.Mime.MediaTypeNames.Application.Octet, "Compresiones.txt");
+        }
+
         [Route("/Compress/{id}/LZW")]
         [HttpPost]
         public async Task<string> UploadFileText([FromForm] FileUploadAPI objFile, string id)
