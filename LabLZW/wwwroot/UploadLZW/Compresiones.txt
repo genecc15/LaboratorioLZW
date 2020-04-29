@@ -1,1 +1,2 @@
-Prueba.txt, 1.25, 0.8, -25
+Nombre Original: Pruebita.txt, Razon de Compresion: 0.97, Factor de Compresion: 1.03, Porcentaje de Compresion: 3.37
+Nombre Original: Pruebita.txt, Razon de Compresion: 1.93, Factor de Compresion: 0.52, Porcentaje de Compresion: -93.26

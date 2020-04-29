@@ -57,7 +57,7 @@ namespace LabLZW
             using (StreamWriter sw = File.AppendText(path))
             {
                 string text =
-                    $"{nuevo.nombreOriginal}, {nuevo.razonDeCompresion}, {nuevo.factorDeCompresion}, {nuevo.porcentajeDeCompresion}";
+                    $"Nombre Original: {nuevo.nombreOriginal}, Razon de Compresion: {nuevo.razonDeCompresion}, Factor de Compresion: {nuevo.factorDeCompresion}, Porcentaje de Compresion: {nuevo.porcentajeDeCompresion}";
                 sw.WriteLine(text);
             }
 

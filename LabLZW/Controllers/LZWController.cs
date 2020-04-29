@@ -43,7 +43,7 @@ namespace LabLZW.Controllers
 
         [Route("/Compress/{id}/LZW")]
         [HttpPost]
-        public async Task<string> UploadFileText([FromForm] FileUploadAPI objFile, string id)
+        public async Task<IActionResult> UploadFileText([FromForm] FileUploadAPI objFile, string id)
         {
             try
             {
@@ -56,13 +56,22 @@ namespace LabLZW.Controllers
                     _fileStream.Close();
 
                     LZWCompress(objFile, id);
-                    return "\\UploadLZW\\" + objFile.Files.FileName;
+                    var memory = new MemoryStream();
+
+                    using (var stream = new FileStream(_environment.WebRootPath + "\\UploadLZW\\" + id +".lzw", FileMode.Open))
+                    {
+                        await stream.CopyToAsync(memory);
+                    }
+
+                    memory.Position = 0;
+                    return File(memory, System.Net.Mime.MediaTypeNames.Application.Octet, id+ ".lzw");
                 }
-                else return "Archivo Vacio";
+                else return StatusCode(404, "Vacio");
+
             }
-            catch (Exception ex)
+            catch
             {
-                return ex.Message.ToString();
+                return StatusCode(404, "Error");
             }
         }
         public void LZWCompress(FileUploadAPI objFile, string id)
@@ -72,7 +81,7 @@ namespace LabLZW.Controllers
         }
         [Route("/Decompress/LZW")]
         [HttpPost]
-        public async Task<string> UploadFileLZW([FromForm] FileUploadAPI objFile)
+        public async Task<IActionResult> UploadFileLZW([FromForm] FileUploadAPI objFile)
         {
             try
             {
@@ -84,18 +93,26 @@ namespace LabLZW.Controllers
                     _fileStream.Flush();
                     _fileStream.Close();
                     LZWDecompress(objFile);
+                    var memory = new MemoryStream();
 
-                    return "\\UploadLZW\\" + objFile.Files.FileName;
+                    using (var stream = new FileStream(_environment.WebRootPath + "\\UploadLZW\\" + objFile.Files.FileName + ".txt", FileMode.Open))
+                    {
+                        await stream.CopyToAsync(memory);
+                    }
+
+                    memory.Position = 0;
+                    return File(memory, System.Net.Mime.MediaTypeNames.Application.Octet, objFile.Files.FileName + objFile.Files.FileName + ".txt");
+
 
                 }
                 else
                 {
-                    return "Archivo vacío.";
+                    return StatusCode(404, "Archivo Vacio");
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                return ex.Message.ToString();
+                return StatusCode(404, "Error");
             }
         }
 
